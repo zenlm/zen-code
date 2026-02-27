@@ -1,32 +1,122 @@
-# Zen Code 4B
+# Zen Code — AI Coding Agent for Your Terminal
 
-General-purpose code generation model. Part of the Zen Eco family.
+An open-source AI coding agent that lives in your terminal. Powered by the Zen Coder model family from [Zen LM](https://zenlm.org).
 
-[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen.svg)](https://nodejs.org/)
 
-## Overview
+## Why Zen Code?
 
-Zen Code 4B is a compact code generation model optimized for fast inference. Supports multiple programming languages with strong performance on code completion, generation, and explanation tasks.
+- **Codebase understanding**: Ask questions about large, unfamiliar repos
+- **Multi-file edits**: Refactor across files with a single prompt
+- **Test execution**: Run tests and iterate on failures automatically
+- **Git integration**: Commit, diff, and review changes in-flow
+- **MCP tools**: 260+ tools via Model Context Protocol
+- **Intelligent routing**: Automatically selects from Zen Coder 4B–480B based on task complexity
 
-| Property | Value |
-|----------|-------|
-| Parameters | 4B |
-| Context | 32K |
-| License | Apache 2.0 |
+## Installation
+
+```bash
+npm install -g @zen/code
+```
+
+Or with Homebrew:
+
+```bash
+brew install zen-code
+```
+
+## Quick Start
+
+```bash
+# Launch interactive session
+zen-code
+
+# Run a single task (headless)
+zen-code "add tests for the auth module"
+
+# Reference specific files
+zen-code "refactor @src/api/handler.ts to use async/await"
+```
 
 ## Usage
 
-```python
-from transformers import AutoModelForCausalLM, AutoTokenizer
+### Interactive mode
 
-model = AutoModelForCausalLM.from_pretrained("zenlm/zen-code")
-tokenizer = AutoTokenizer.from_pretrained("zenlm/zen-code")
+```bash
+cd your-project/
+zen-code
 ```
 
-## Related
+Type prompts directly. Use `@filename` to reference files in context.
 
-- [zen-eco](https://huggingface.co/zenlm/zen-eco) — Base 4B model
-- [zen-coder](https://huggingface.co/zenlm/zen-coder) — 24B code model
-- [Zen LM](https://github.com/zenlm) — Full model family
+### Headless mode (scripts, CI)
 
-Apache 2.0 · [Zen LM](https://zenlm.org) · [Hanzo AI](https://hanzo.ai)
+```bash
+zen-code -p "fix the failing tests in src/"
+```
+
+### IDE integration
+
+Zen Code integrates with VS Code, Zed, and JetBrains IDEs. See [zenlm.org](https://zenlm.org) for setup guides.
+
+## Configuration
+
+Create `~/.zen/settings.json`:
+
+```json
+{
+  "modelProviders": {
+    "openai": [
+      {
+        "id": "zenlm/zen-coder",
+        "name": "Zen Coder",
+        "baseUrl": "http://localhost:8000/v1",
+        "envKey": "ZEN_API_KEY"
+      }
+    ]
+  },
+  "model": {
+    "name": "zenlm/zen-coder"
+  }
+}
+```
+
+## Models
+
+Zen Code uses the Zen Coder family with intelligent routing:
+
+| Model | Parameters | Context | Best For |
+|-------|-----------|---------|----------|
+| Zen Coder 4B | 4B | 32K | Fast edits, edge deployment |
+| Zen Coder Flash | 31B MoE | 131K | Balanced performance |
+| Zen Coder 480B | 480B MoE | 128K | Complex refactors, frontier tasks |
+
+Deploy with vLLM:
+
+```bash
+vllm serve zenlm/zen-coder --port 8000
+```
+
+## Session Commands
+
+- `/help` — list commands
+- `/clear` — clear conversation history
+- `/compress` — compress history to save tokens
+- `/stats` — show session info
+- `/exit` — quit
+
+## Links
+
+- **Website**: https://zenlm.org
+- **Models**: https://huggingface.co/zenlm
+- **GitHub**: https://github.com/zenlm
+- **Hanzo MCP**: https://github.com/hanzoai/mcp
+
+## License
+
+Apache 2.0
+
+---
+
+**Zen AI**: Clarity Through Intelligence
