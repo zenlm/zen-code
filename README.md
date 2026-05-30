@@ -69,7 +69,7 @@ Create `~/.zen/settings.json`:
   "modelProviders": {
     "openai": [
       {
-        "id": "zenlm/zen-coder",
+        "id": "zenlm/zen-5-coder-gguf",
         "name": "Zen Coder",
         "baseUrl": "http://localhost:8000/v1",
         "envKey": "ZEN_API_KEY"
@@ -77,7 +77,7 @@ Create `~/.zen/settings.json`:
     ]
   },
   "model": {
-    "name": "zenlm/zen-coder"
+    "name": "zenlm/zen-5-coder-gguf"
   }
 }
 ```
@@ -95,7 +95,7 @@ Zen Code uses the Zen Coder family with intelligent routing:
 Deploy with vLLM:
 
 ```bash
-vllm serve zenlm/zen-coder --port 8000
+vllm serve zenlm/zen-5-coder-gguf --port 8000
 ```
 
 ## Session Commands
